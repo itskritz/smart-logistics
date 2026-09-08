@@ -21,14 +21,25 @@ const getReports = async (req, res) => {
   }
 };
 
-const showReportForm = (req, res) => {
+const showReportForm = async (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
 
-  res.render("report", {
-    user: req.session.user
-  });
+  try {
+    const roadsResult = await pool.query(
+      "SELECT id, name, location FROM roads ORDER BY name"
+    );
+
+    res.render("report", {
+      user: req.session.user,
+      report: null,
+      roads: roadsResult.rows
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Failed to load report form");
+  }
 };
 
 const createReport = async (req, res) => {
@@ -46,13 +57,19 @@ const createReport = async (req, res) => {
       longitude
     } = req.body;
 
+    const parsedRoadId = roadId ? Number.parseInt(roadId, 10) : null;
+
+    if (roadId && !Number.isInteger(parsedRoadId)) {
+      return res.status(400).send("Please select a valid road");
+    }
+
     await pool.query(
       `INSERT INTO reports
        (user_id, road_id, issue_type, severity, description, latitude, longitude)
        VALUES ($1, $2, $3, $4, $5, $6, $7)`,
       [
         req.session.user.id,
-        roadId || null,
+        parsedRoadId,
         issueType,
         severity,
         description,

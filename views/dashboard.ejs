@@ -40,10 +40,52 @@
             <p>Send an emergency alert.</p>
             <a href="/sos">SOS</a>
         </div>
+        
 
+    </div>
+     <!-- Add the chart here -->
+    <div style="width: 500px; max-width: 100%;">
+        <h2>Report Status</h2>
+        <canvas id="reportsStatusChart"></canvas>
     </div>
 
 </main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    fetch("/api/charts/reports-status")
+        .then(response => response.json())
+        .then(data => {
+            const labels = data.map(item => item.status);
+            const values = data.map(item => Number(item.total));
+
+            new Chart(document.getElementById("reportsStatusChart"), {
+                type: "pie",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: [
+                            "#2563eb",
+                            "#16a34a",
+                            "#f59e0b",
+                            "#dc2626",
+                            "#9333ea"
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            });
+        });
+</script>
+
 
 </body>
 </html>

@@ -18,7 +18,7 @@ const findRoute = async (req, res) => {
       return res.status(400).send("Start and destination are required");
     }
 
-    const routeResult = await predictRoute(start, destination);
+    const routeResult = await predictRoute(pool, start, destination);
 
     await pool.query(
       `INSERT INTO routes

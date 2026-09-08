@@ -10,12 +10,17 @@ const roadRoutes = require("./routes/roads");
 const reportRoutes = require("./routes/reports");
 const routeRoutes = require("./routes/routes");
 const sosRoutes = require("./routes/sos");
+const assistantRoutes = require("./routes/assistant");
 
 const app = express();
+//chart
+const chartRoutes = require("./routes/charts");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+//chart
+app.use("/api/charts", chartRoutes);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -34,6 +39,7 @@ app.use("/roads", roadRoutes);
 app.use("/reports", reportRoutes);
 app.use("/routes", routeRoutes);
 app.use("/sos", sosRoutes);
+app.use("/api/assistant", assistantRoutes);
 
 app.get("/", (req, res) => {
   res.render("index", {

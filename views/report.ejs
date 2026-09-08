@@ -60,11 +60,14 @@
 
         <form action="/reports" method="POST">
 
-            <input
-                type="number"
-                name="roadId"
-                placeholder="Road ID"
-            >
+            <select name="roadId">
+                <option value="">Select Road (optional)</option>
+                <% (roads || []).forEach(road => { %>
+                    <option value="<%= road.id %>">
+                        <%= road.name %> - <%= road.location %>
+                    </option>
+                <% }) %>
+            </select>
 
             <input
                 type="text"

@@ -19,8 +19,26 @@
 
     <h1>Road Reports</h1>
 
+    <div class="card">
+        <h2>Ask Gemini About Reports</h2>
+
+        <form id="assistantForm">
+            <input
+                id="assistantQuestion"
+                type="text"
+                placeholder="Are there any blocked roads?"
+                required
+            >
+            <button type="submit">Ask AI</button>
+        </form>
+
+        <p id="assistantAnswer"></p>
+    </div>
+
     <% if (user) { %>
         <a class="btn" href="/reports/new">Report a Road Problem</a>
+    <% } else { %>
+        <a class="btn" href="/login">Login to Report a Road Problem</a>
     <% } %>
 
     <div class="reports">
@@ -64,6 +82,28 @@
     </div>
 
 </main>
+
+<script>
+    document
+        .getElementById("assistantForm")
+        .addEventListener("submit", async event => {
+            event.preventDefault();
+
+            const question = document.getElementById("assistantQuestion").value;
+            const answerElement = document.getElementById("assistantAnswer");
+
+            answerElement.textContent = "Gemini is analyzing the reports...";
+
+            const response = await fetch("/api/assistant", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question })
+            });
+
+            const data = await response.json();
+            answerElement.textContent = data.answer;
+        });
+</script>
 
 </body>
 </html>
