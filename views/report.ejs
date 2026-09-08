@@ -1,0 +1,113 @@
+<!-- views/report.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report - Smart Logistics</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+    <h2>Smart Logistics</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/reports">Reports</a>
+</nav>
+
+<main class="container">
+
+    <% if (report) { %>
+
+        <div class="card">
+
+            <h1><%= report.issue_type %></h1>
+
+            <p>
+                <strong>Reported By:</strong>
+                <%= report.user_name || "Unknown" %>
+            </p>
+
+            <p>
+                <strong>Severity:</strong>
+                <%= report.severity %>
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                <%= report.status %>
+            </p>
+
+            <p>
+                <strong>Description:</strong>
+                <%= report.description %>
+            </p>
+
+            <% if (report.latitude && report.longitude) { %>
+
+                <p>
+                    <strong>Location:</strong>
+                    <%= report.latitude %>,
+                    <%= report.longitude %>
+                </p>
+
+            <% } %>
+
+        </div>
+
+    <% } else { %>
+
+        <h1>Report Road Problem</h1>
+
+        <form action="/reports" method="POST">
+
+            <input
+                type="number"
+                name="roadId"
+                placeholder="Road ID"
+            >
+
+            <input
+                type="text"
+                name="issueType"
+                placeholder="Issue Type"
+                required
+            >
+
+            <select name="severity" required>
+                <option value="">Select Severity</option>
+                <option value="LOW">Low</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="HIGH">High</option>
+                <option value="CRITICAL">Critical</option>
+            </select>
+
+            <textarea
+                name="description"
+                placeholder="Describe the problem"
+                required
+            ></textarea>
+
+            <input
+                type="number"
+                step="any"
+                name="latitude"
+                placeholder="Latitude"
+            >
+
+            <input
+                type="number"
+                step="any"
+                name="longitude"
+                placeholder="Longitude"
+            >
+
+            <button type="submit">Submit Report</button>
+
+        </form>
+
+    <% } %>
+
+</main>
+
+</body>
+</html>

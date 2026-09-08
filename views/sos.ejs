@@ -1,0 +1,53 @@
+<!-- views/sos.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SOS - Smart Logistics</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+    <h2>Smart Logistics</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/routes">Routes</a>
+    <a href="/reports">Reports</a>
+</nav>
+
+<main class="container">
+
+    <h1>Emergency SOS</h1>
+
+    <form action="/sos" method="POST">
+
+        <input
+            type="number"
+            step="any"
+            name="latitude"
+            placeholder="Latitude"
+            required
+        >
+
+        <input
+            type="number"
+            step="any"
+            name="longitude"
+            placeholder="Longitude"
+            required
+        >
+
+        <textarea
+            name="message"
+            placeholder="Emergency message"
+            required
+        ></textarea>
+
+        <button type="submit">SEND SOS</button>
+
+    </form>
+
+</main>
+
+</body>
+</html>

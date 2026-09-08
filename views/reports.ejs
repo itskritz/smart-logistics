@@ -1,0 +1,69 @@
+<!-- views/reports.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reports - Smart Logistics</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+    <h2>Smart Logistics</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/routes">Routes</a>
+    <a href="/sos">SOS</a>
+</nav>
+
+<main class="container">
+
+    <h1>Road Reports</h1>
+
+    <% if (user) { %>
+        <a class="btn" href="/reports/new">Report a Road Problem</a>
+    <% } %>
+
+    <div class="reports">
+
+        <% if (reports.length === 0) { %>
+
+            <p>No reports available.</p>
+
+        <% } else { %>
+
+            <% reports.forEach(report => { %>
+
+                <div class="card">
+
+                    <h3><%= report.issue_type %></h3>
+
+                    <p>
+                        <strong>Severity:</strong>
+                        <%= report.severity %>
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        <%= report.status %>
+                    </p>
+
+                    <p>
+                        <%= report.description %>
+                    </p>
+
+                    <a href="/reports/<%= report.id %>">
+                        View Report
+                    </a>
+
+                </div>
+
+            <% }) %>
+
+        <% } %>
+
+    </div>
+
+</main>
+
+</body>
+</html>

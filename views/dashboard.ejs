@@ -1,0 +1,49 @@
+<!-- views/dashboard.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Smart Logistics</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+    <h2>Smart Logistics</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/routes">Routes</a>
+    <a href="/reports">Reports</a>
+    <a href="/sos">SOS</a>
+    <a href="/logout">Logout</a>
+</nav>
+
+<main class="container">
+
+    <h1>Welcome, <%= user.name %></h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Route Planning</h3>
+            <p>Find safer and better routes.</p>
+            <a href="/routes">Plan Route</a>
+        </div>
+
+        <div class="card">
+            <h3>Road Reports</h3>
+            <p>View and report road problems.</p>
+            <a href="/reports">View Reports</a>
+        </div>
+
+        <div class="card">
+            <h3>Emergency SOS</h3>
+            <p>Send an emergency alert.</p>
+            <a href="/sos">SOS</a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

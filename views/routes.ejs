@@ -1,0 +1,74 @@
+<!-- views/routes.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Routes - Smart Logistics</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+    <h2>Smart Logistics</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/reports">Reports</a>
+    <a href="/sos">SOS</a>
+</nav>
+
+<main class="container">
+
+    <h1>Route Planning</h1>
+
+    <form action="/routes/find" method="POST">
+
+        <input
+            type="text"
+            name="start"
+            placeholder="Starting location"
+            required
+        >
+
+        <input
+            type="text"
+            name="destination"
+            placeholder="Destination"
+            required
+        >
+
+        <button type="submit">Find Best Route</button>
+    </form>
+
+    <% if (routeResult) { %>
+
+        <div class="card">
+
+            <h2>Recommended Route</h2>
+
+            <p>
+                <strong>Route:</strong>
+                <%= routeResult.recommendedRoute %>
+            </p>
+
+            <p>
+                <strong>Distance:</strong>
+                <%= routeResult.distance %> km
+            </p>
+
+            <p>
+                <strong>Estimated Time:</strong>
+                <%= routeResult.estimatedTime %> minutes
+            </p>
+
+            <p>
+                <strong>Risk Level:</strong>
+                <%= routeResult.riskLevel %>
+            </p>
+
+        </div>
+
+    <% } %>
+
+</main>
+
+</body>
+</html>
